@@ -22,12 +22,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var listOfPosts: [Post] = []
     
+    var imageSelected: String?
+    var location: String?
     
     
     
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return(listOfPosts.count)
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(listOfPosts.count)
+        
+        listOfPosts = [testPost, testPost2, testPost3, testPost4, testPost5]
+        
+        if let postPicture = imageSelected, let postLocation = location {
+            let newPost = Post(imageSrc: postPicture, location: postLocation)
+            listOfPosts.append(newPost)
+            print("post made")
         }
+        
+        
+        
+        print(listOfPosts.count)
+
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return(listOfPosts.count)
+    }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
@@ -43,17 +65,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return cell
             
         }
-    
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        
-        listOfPosts = [testPost, testPost2, testPost3, testPost4, testPost5]
-         
-
-    }
     
 }
     

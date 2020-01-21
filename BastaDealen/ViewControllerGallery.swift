@@ -12,6 +12,8 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     
     let screenWidth = UIScreen.main.bounds.width
     
+    var imageToSend: String?
+    
     @IBOutlet weak var newPostImage: UIImageView!
     @IBOutlet weak var galleryView: UICollectionView!
     
@@ -94,6 +96,7 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         
         if selected {
             newPostImage.image = UIImage(named: imageName.rawValue)
+            imageToSend = imageName.rawValue
         }
         
         if let cell = galleryView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? GalleryCell {
@@ -117,6 +120,12 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
             cell.picture.tintColor = selected ? selectedColor : defaultColor
             cell.picture.image = UIImage(named: "default")
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
+        let destinationVC = segue.destination as! ViewControllerLocation
+        
+        destinationVC.imageSelected = imageToSend
     }
 }
     
