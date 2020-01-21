@@ -16,6 +16,8 @@
 		20150AF623D5B74C001F7417 /* BastaDealenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20150AF523D5B74C001F7417 /* BastaDealenTests.swift */; };
 		20150B0123D5B74C001F7417 /* BastaDealenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20150B0023D5B74C001F7417 /* BastaDealenUITests.swift */; };
 		204A6A8323D5D997001D0B46 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204A6A8223D5D997001D0B46 /* Post.swift */; };
+		207D7C3023D6EA7600A1C6D0 /* ViewControllerGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D7C2F23D6EA7600A1C6D0 /* ViewControllerGallery.swift */; };
+		207D7C3223D6F37200A1C6D0 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D7C3123D6F37200A1C6D0 /* GalleryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		20150B0023D5B74C001F7417 /* BastaDealenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BastaDealenUITests.swift; sourceTree = "<group>"; };
 		20150B0223D5B74C001F7417 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		204A6A8223D5D997001D0B46 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		207D7C2F23D6EA7600A1C6D0 /* ViewControllerGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerGallery.swift; sourceTree = "<group>"; };
+		207D7C3123D6F37200A1C6D0 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				204A6A8223D5D997001D0B46 /* Post.swift */,
 				20150AE223D5B74A001F7417 /* ViewController.swift */,
 				20150AE423D5B74A001F7417 /* Main.storyboard */,
+				207D7C3123D6F37200A1C6D0 /* GalleryCell.swift */,
+				207D7C2F23D6EA7600A1C6D0 /* ViewControllerGallery.swift */,
 				20150AE723D5B74C001F7417 /* Assets.xcassets */,
 				20150AE923D5B74C001F7417 /* LaunchScreen.storyboard */,
 				20150AEC23D5B74C001F7417 /* Info.plist */,
@@ -262,8 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				207D7C3223D6F37200A1C6D0 /* GalleryCell.swift in Sources */,
 				20150AE323D5B74A001F7417 /* ViewController.swift in Sources */,
 				20150ADF23D5B74A001F7417 /* AppDelegate.swift in Sources */,
+				207D7C3023D6EA7600A1C6D0 /* ViewControllerGallery.swift in Sources */,
 				20150AE123D5B74A001F7417 /* SceneDelegate.swift in Sources */,
 				204A6A8323D5D997001D0B46 /* Post.swift in Sources */,
 			);
