@@ -94,7 +94,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
-            
+            listOfPosts = listOfPosts.sorted(by: { $0.ratingOfDeal > $1.ratingOfDeal })
             let post = listOfPosts[indexPath.row]
             
             cell.locationLabel.text = post.locationOfItem
@@ -106,10 +106,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
             tableView.contentInset.bottom = 70
         
-            listOfPosts = listOfPosts.sorted(by: { $0.ratingOfDeal > $1.ratingOfDeal })
-        
-            
-            
             return cell
             
         }
