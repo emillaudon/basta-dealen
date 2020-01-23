@@ -8,11 +8,26 @@
 
 import UIKit
 
+extension UIImageView {
+    func setImageColor(color: UIColor) {
+        let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
+        self.image = templateImage
+        self.tintColor = color
+        
+    }
+}
+
+
 class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
     
     let screenWidth = UIScreen.main.bounds.width
     
     var imageToSend: String?
+    
+    var listOfPosts:[Post]?
+    
+    
+    var selectedImageNr : Int?
     
     @IBOutlet weak var newPostImage: UIImageView!
     @IBOutlet weak var galleryView: UICollectionView!
@@ -32,9 +47,9 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     func setUpCollectionViewCells() {
         let layout = UICollectionViewFlowLayout()
         
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 3, left: 0, bottom: 20, right: 0)
         
-        let padding: CGFloat = 10
+        let padding: CGFloat = 3
         
         let itemWidth = screenWidth/3 - padding
         let itemHeight = screenWidth/3 - padding
@@ -61,12 +76,28 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         }
         
         let picture = listOfPictures[indexPath.row]
+       
         
         cell.picture.image = picture.getPicture()
+        cell.tint.isHidden = true
+        
+        if selectedImageNr == indexPath.row {
+            cell.tint.isHidden = false
+            }
+       
         cell.picture.frame = CGRect(x: 0, y: 0, width: screenWidth/3, height: screenWidth/3)
         cell.tint.frame = CGRect(x: 0, y: 0, width: screenWidth/3, height: screenWidth/3)
         print(listOfPictures[indexPath.row])
         print(picture.rawValue)
+        
+        if selectedImageNr == indexPath.row {
+        let imageName = listOfPictures[indexPath.row]
+        newPostImage.image = UIImage(named: imageName.rawValue)
+        imageToSend = imageName.rawValue
+        }
+        
+        
+      
         
         return cell
     }
@@ -76,56 +107,29 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         updateCell(having: indexPath, selected: false)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        updateCell(having: indexPath, selected: true)
+      //  updateCell(having: indexPath, selected: true)
+        selectedImageNr = indexPath.row
+        galleryView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        updateCell(having: indexPath, selected: false)
+        selectedImageNr = nil
+        galleryView.reloadData()
     }
     
     func updateCell(having indexPath: IndexPath, selected: Bool) {
-        //TODO: Make pictures appear as selected when clicked
 
-        let selectedColor = UIColor(red: 41/255.0, green: 211/255.0, blue: 241/255.0, alpha: 1.0)
-        let defaultColor = UIColor(red: 27/255.0, green: 32/255.0, blue: 36/255.0, alpha: 1.0)
-        
-        let imageName = listOfPictures[indexPath.row]
-        
-        if selected {
-            newPostImage.image = UIImage(named: imageName.rawValue)
-            imageToSend = imageName.rawValue
-        }
-        
-        if let cell = galleryView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? GalleryCell {
-            print("ran")
-            
-            cell.tint.tintColor = UIColor(red: 27/255.0, green: 32/255.0, blue: 36/255.0, alpha: 1.0)
-            
-            
-            cell.picture.image = UIImage(named: "default")
-            if selected {
-                print(listOfPictures[indexPath.row])
-                cell.picture.alpha = 0.4
-                cell.picture.image = UIImage(named: "default")
-            }
-            
-            if let imageToTint = UIImage(named: imageName.rawValue) {
-                let tintedImage = imageToTint.withRenderingMode(.alwaysTemplate)
-                cell.picture.image = tintedImage
-            }
-            
-            cell.picture.tintColor = selected ? selectedColor : defaultColor
-            cell.picture.image = UIImage(named: "default")
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
         let destinationVC = segue.destination as! ViewControllerLocation
         
         destinationVC.imageSelected = imageToSend
+        destinationVC.listOfPosts = listOfPosts
     }
 }
     

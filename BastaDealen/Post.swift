@@ -12,6 +12,7 @@ import UIKit
 class Post {
     let image: UIImage?
     let locationOfItem: String
+    var ratingOfDeal: Int
     
     init(imageSrc: String, location: String) {
         
@@ -22,6 +23,9 @@ class Post {
         }
 
         self.locationOfItem = location
+        self.ratingOfDeal = 0
+        
+        
     }
 }
 
@@ -32,5 +36,6 @@ class PostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var testText: UILabel!
     
+    @IBOutlet weak var ratingLabel: UILabel!
     
 }

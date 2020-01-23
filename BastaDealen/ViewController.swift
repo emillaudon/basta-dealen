@@ -24,7 +24,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var imageSelected: String?
     var location: String?
+    var sentListOfPosts: [Post]?
     
+    @IBOutlet weak var postTableView: UITableView!
     
     
     
@@ -33,19 +35,57 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         print(listOfPosts.count)
         
-        listOfPosts = [testPost, testPost2, testPost3, testPost4, testPost5]
-        
         if let postPicture = imageSelected, let postLocation = location {
             let newPost = Post(imageSrc: postPicture, location: postLocation)
             listOfPosts.append(newPost)
             print("post made")
+        } else {
+        
+        listOfPosts = [testPost, testPost2, testPost3, testPost4, testPost5]
+        
         }
+        
         
         
         
         print(listOfPosts.count)
 
     }
+    
+    
+    @IBAction func increaseRatingValue(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview as? PostTableViewCell else {
+            fatalError()
+        }
+        
+        if let indexPath = postTableView.indexPath(for: cell) {
+            print(Int(indexPath.row))
+            
+            let currentPost: Post = listOfPosts[indexPath.row]
+            
+            currentPost.ratingOfDeal += 1
+            
+            postTableView.reloadData()
+        }
+    }
+    
+    @IBAction func decreaseRatingValue(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview as? PostTableViewCell else {
+            fatalError()
+        }
+        
+        if let indexPath = postTableView.indexPath(for: cell) {
+            print(Int(indexPath.row))
+            
+            let currentPost: Post = listOfPosts[indexPath.row]
+            
+            currentPost.ratingOfDeal -= 1
+            
+            postTableView.reloadData()
+        }
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return(listOfPosts.count)
@@ -59,25 +99,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.locationLabel.text = post.locationOfItem
             cell.postImage.image = post.image
+            
+            cell.ratingLabel.text = String(post.ratingOfDeal)
         
             tableView.rowHeight = 440
+        
+            tableView.contentInset.bottom = 70
+        
+            listOfPosts = listOfPosts.sorted(by: { $0.ratingOfDeal > $1.ratingOfDeal })
+        
+            
             
             return cell
             
         }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ViewControllerCamera
+        
+        destinationVC.listOfPosts = listOfPosts
+    }
+    
+    
+    
 }
     
-    
-    
-
-    
-    
-
-    
-   // func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-   //     let cell = UITableViewCell(style: UITableViewCell.CellStyle.postCell, reuseIdentifier: <#T##String?#>)
-   // }
 
 
 

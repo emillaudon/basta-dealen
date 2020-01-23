@@ -12,6 +12,8 @@ class ViewControllerLocation: UIViewController {
     @IBOutlet weak var locationInputField: UITextField!
     @IBOutlet weak var locationInputFieldView: UIView!
     
+    var listOfPosts: [Post]?
+    
     var imageSelected: String?
     var location: String?
     
@@ -30,6 +32,9 @@ class ViewControllerLocation: UIViewController {
         
         destinationVC.imageSelected = imageSelected
         destinationVC.location = locationInputField.text
+        if let listOfPostsToSend: [Post] = listOfPosts {
+            destinationVC.listOfPosts = listOfPostsToSend
+        }
     }
     /*
     // MARK: - Navigation

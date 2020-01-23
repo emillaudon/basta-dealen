@@ -21,7 +21,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bu5-Sp-TTT">
-                                        <rect key="frame" x="0.0" y="75" width="414" height="753"/>
+                                        <rect key="frame" x="0.0" y="69" width="414" height="760"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.93333333330000001" green="0.53725490200000003" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="separatorColor" red="0.93333333330000001" green="0.53725490200000003" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -47,8 +47,8 @@
                                                             <color key="textColor" red="0.26274141669273376" green="0.26274317502975464" blue="0.26274773478507996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYu-zN-pjL">
-                                                            <rect key="frame" x="37" y="393" width="331" height="20"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYu-zN-pjL">
+                                                            <rect key="frame" x="177" y="402" width="65" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="17"/>
                                                             <color key="textColor" red="0.35294117650000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,12 +63,31 @@
                                                             <rect key="frame" x="7" y="25" width="26" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bC9-Ki-7dZ">
+                                                            <rect key="frame" x="103" y="396" width="46" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="tintColor" red="0.26274141670000001" green="0.262743175" blue="0.26274773480000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <state key="normal" backgroundImage="arrow.up.square.fill" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="increaseRatingValue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Ue-n4-y4l"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7P-T0-Itd">
+                                                            <rect key="frame" x="275" y="396" width="46" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="tintColor" red="0.26274141670000001" green="0.262743175" blue="0.26274773480000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <state key="normal" backgroundImage="arrow.down.square.fill" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="decreaseRatingValue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MI3-RI-iD1"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="locationLabel" destination="zgw-Hs-QEi" id="G5G-S7-rAJ"/>
                                                     <outlet property="postImage" destination="Y02-Ud-AoI" id="nIq-SO-5Tn"/>
+                                                    <outlet property="ratingLabel" destination="hYu-zN-pjL" id="OJM-jp-JrF"/>
                                                     <outlet property="testText" destination="hYu-zN-pjL" id="J42-6m-dYR"/>
                                                 </connections>
                                             </tableViewCell>
@@ -82,10 +101,10 @@
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.53725490200000003" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-1t-9mN">
-                                <rect key="frame" x="245" y="747" width="149" height="79"/>
+                                <rect key="frame" x="307" y="731" width="75" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="66"/>
-                                <state key="normal" title="Post" image="ellipse">
+                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                <state key="normal" backgroundImage="ellipse">
                                     <color key="titleColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -112,15 +131,18 @@
                         <color key="backgroundColor" red="0.93333333330000001" green="0.53725490200000003" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="postTableView" destination="bu5-Sp-TTT" id="u2h-Sc-QBc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14" y="116"/>
+            <point key="canvasLocation" x="-14.492753623188406" y="115.84821428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller Camera-->
         <scene sceneID="Vit-xn-iDl">
             <objects>
-                <viewController id="Uw2-Rn-i1T" sceneMemberID="viewController">
+                <viewController id="Uw2-Rn-i1T" customClass="ViewControllerCamera" customModule="BastaDealen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wco-t2-fk7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -356,6 +378,8 @@
     <resources>
         <image name="BastaDealen" width="835" height="407"/>
         <image name="Places" width="6.6666665077209473" height="6.6666665077209473"/>
+        <image name="arrow.down.square.fill" catalog="system" width="64" height="56"/>
+        <image name="arrow.up.square.fill" catalog="system" width="64" height="56"/>
         <image name="ellipse" width="26" height="26"/>
     </resources>
 </document>
