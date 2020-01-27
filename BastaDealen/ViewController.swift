@@ -22,7 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var listOfPosts: [Post] = []
     
-    var imageSelected: String?
+    var imageSelected: UIImage?
     var location: String?
     var sentListOfPosts: [Post]?
     
@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(listOfPosts.count)
         
         if let postPicture = imageSelected, let postLocation = location {
-            let newPost = Post(imageSrc: postPicture, location: postLocation)
+            let newPost = Post(image: postPicture, location: postLocation)
             listOfPosts.append(newPost)
             print("post made")
         } else {

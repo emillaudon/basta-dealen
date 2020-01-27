@@ -27,6 +27,18 @@ class Post {
         
         
     }
+    init(image: UIImage?, location: String){
+        if let imageToApply: UIImage = image {
+            self.image = imageToApply
+        } else {
+            self.image = nil
+        }
+        
+        self.locationOfItem = location
+        self.ratingOfDeal = 0
+        
+        
+    }
 }
 
 class PostTableViewCell: UITableViewCell {

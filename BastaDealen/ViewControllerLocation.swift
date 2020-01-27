@@ -14,7 +14,7 @@ class ViewControllerLocation: UIViewController {
     
     var listOfPosts: [Post]?
     
-    var imageSelected: String?
+    var imageSelected: UIImage?
     var location: String?
     
     override func viewDidLoad() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 extension UIImageView {
     func setImageColor(color: UIColor) {
@@ -22,9 +23,11 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     
     let screenWidth = UIScreen.main.bounds.width
     
-    var imageToSend: String?
+    var imageToSend: UIImage?
     
     var listOfPosts:[Post]?
+    
+    var imageArray = [UIImage]()
     
     
     var selectedImageNr : Int?
@@ -39,6 +42,7 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        grabPhotosFromPhone()
         // Do any additional setup after loading the view.
         setUpCollectionViewCells()
     }
@@ -59,15 +63,11 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         layout.minimumInteritemSpacing = 4
         
         galleryView.collectionViewLayout = layout
-        
-        print("collvi")
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(listOfPictures.count)
-        return listOfPictures.count
+        return listOfPictures.count + imageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,30 +75,41 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
             fatalError()
         }
         
-        let picture = listOfPictures[indexPath.row]
-       
-        
-        cell.picture.image = picture.getPicture()
         cell.tint.isHidden = true
         
         if selectedImageNr == indexPath.row {
             cell.tint.isHidden = false
             }
-       
+        
         cell.picture.frame = CGRect(x: 0, y: 0, width: screenWidth/3, height: screenWidth/3)
         cell.tint.frame = CGRect(x: 0, y: 0, width: screenWidth/3, height: screenWidth/3)
-        print(listOfPictures[indexPath.row])
-        print(picture.rawValue)
+        
+        
+        if imageArray.count > 0 && indexPath.row >= listOfPictures.count {
+            
+            let picture = imageArray[indexPath.row - listOfPictures.count]
+            
+            cell.picture.image = picture
+            
+            if selectedImageNr == indexPath.row {
+                
+                newPostImage.image = picture
+            
+            imageToSend = picture
+            }
+            
+        } else {
+            
+        let picture = listOfPictures[indexPath.row]
+       
+        cell.picture.image = picture.getPicture()
         
         if selectedImageNr == indexPath.row {
-        let imageName = listOfPictures[indexPath.row]
-        newPostImage.image = UIImage(named: imageName.rawValue)
-        imageToSend = imageName.rawValue
+            let imageName = listOfPictures[indexPath.row]
+            newPostImage.image = UIImage(named: imageName.rawValue)
+            imageToSend = UIImage(named: "imageName.rawValue")
+            }
         }
-        
-        
-      
-        
         return cell
     }
     
@@ -130,6 +141,43 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         
         destinationVC.imageSelected = imageToSend
         destinationVC.listOfPosts = listOfPosts
+    }
+    
+    func grabPhotosFromPhone() {
+        imageArray = []
+        
+        DispatchQueue.global(qos: .background).async {
+            print("ok")
+        }
+        let imgManager = PHImageManager.default()
+        
+        let requestOptions = PHImageRequestOptions()
+        requestOptions.isSynchronous = true
+        requestOptions.deliveryMode = .highQualityFormat
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        let fetchResults: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+        
+        print(fetchResults)
+        print(fetchResults.count)
+        
+        if fetchResults.count > 0 {
+        for index in 0..<fetchResults.count{
+            imgManager.requestImage(for: fetchResults.object(at: index) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
+                self.imageArray.append(image!)
+            })
+            }
+        } else {
+            print("no photos")
+        }
+        print("imageArray count: \(self.imageArray.count)")
+        
+        DispatchQueue.main.async {
+            self.galleryView.reloadData()
+        }
+        
     }
 }
     
