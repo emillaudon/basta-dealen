@@ -75,6 +75,10 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
             fatalError()
         }
         
+        if imageArray.count == 0 {
+            grabPhotosFromPhone()
+        }
+        
         cell.tint.isHidden = true
         
         if selectedImageNr == indexPath.row {
