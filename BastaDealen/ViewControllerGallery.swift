@@ -42,9 +42,14 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if imageToSend != nil {
+        imageArray.append(imageToSend!)
+        print("inte nil")
+        }
         grabPhotosFromPhone()
         // Do any additional setup after loading the view.
         setUpCollectionViewCells()
+        newPostImage.image = imageToSend
     }
     
     
@@ -168,9 +173,19 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         print(fetchResults.count)
         
         if fetchResults.count > 0 {
-        for index in 0..<fetchResults.count{
+            var fetchResultCount = fetchResults.count
+            
+            if fetchResults.count > 100 {
+                fetchResultCount = 100
+            }
+                
+    
+        for index in 0..<fetchResultCount{
             imgManager.requestImage(for: fetchResults.object(at: index) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
-                self.imageArray.append(image!)
+                if let imageToAppend = image {
+                    self.imageArray.append(imageToAppend)
+                }
+                
             })
             }
         } else {

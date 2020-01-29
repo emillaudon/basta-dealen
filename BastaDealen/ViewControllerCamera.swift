@@ -7,22 +7,37 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewControllerCamera: UIViewController {
     
     var listOfPosts: [Post]?
+    
+    let captureSession = AVCaptureSession()
+    var previewLayer:CALayer!
+    
+    var captureDevice:AVCaptureDevice!
+    
+    var takePhoto = false
+    
+    var imageToSend: UIImage?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
+    
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ViewControllerGallery
         
         destinationVC.listOfPosts = listOfPosts
+        
+        print("körd")
     }
+}
     
 
     /*
@@ -35,4 +50,5 @@ class ViewControllerCamera: UIViewController {
     }
     */
 
-}
+
+
