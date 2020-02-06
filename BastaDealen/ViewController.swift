@@ -7,51 +7,117 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let testPost = Post(imageSrc: "storePicOne", location: "Willy:s Hemma Fridhemsplan")
-    
-    let testPost2 = Post(imageSrc: "che-guevara", location: "Stora Coop Häggvik")
-    
-    let testPost3 = Post(imageSrc: "fat-cat", location: "Stora Coop Häggvik")
-    
-    let testPost4 = Post(imageSrc: "maxresdefault", location: "Stora Coop Häggvik")
-    
-    let testPost5 = Post(imageSrc: "fidel", location: "Stora Coop Häggvik")
+    var db: Firestore!
 
     var listOfPosts: [Post] = []
     
     var imageSelected: UIImage?
     var location: String?
     var sentListOfPosts: [Post]?
+    var newPost: Post?
     
     @IBOutlet weak var postTableView: UITableView!
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(listOfPosts.count)
         
-        if let postPicture = imageSelected, let postLocation = location {
-            let newPost = Post(image: postPicture, location: postLocation)
-            listOfPosts.append(newPost)
-            print("post made")
-        } else {
-        
-        listOfPosts = [testPost, testPost2, testPost3, testPost4, testPost5]
-        
-        }
-        
-        
-        
-        
-        print(listOfPosts.count)
+        assemblePostArray()
 
     }
     
+    func assemblePostArray() {
+        db = Firestore.firestore()
+        
+        
+        let postRef = db.collection("Posts")
+        
+        postRef.getDocuments() {
+            (snapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            postRef.addSnapshotListener() {
+                (snapshot, error) in
+                guard let documents = snapshot?.documents else {return}
+                
+                self.listOfPosts.removeAll()
+                
+                
+                for document in documents {
+                    let snapshotValue = document.data() as [String : Any]
+                    let imageDir = snapshotValue["imageDir"] as! String
+                    
+                    let post = Post(snapshot: document)
+                    
+                    post.getImage(imageDir: imageDir) {
+                        self.listOfPosts.append(post)
+                        self.postTableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func updateRatingValue(of post: Post, with newRating: Int) {
+        
+        db = Firestore.firestore()
+        
+        db.collection("Posts").document(post.postID).updateData(["rating" : newRating])
+    }
+        
+//        func addListener() {
+//            db = Firestore.firestore()
+//
+//            let postRef = db.collection("Posts")
+//
+//            postRef.addSnapshotListener() {
+//                (snapshot, error) in
+//
+//                self.listOfPosts.removeAll()
+//
+//                guard let documents = snapshot?.documents else {return}
+//
+//                for document in documents {
+//
+//                let snapshotValue = document.data() as [String : Any]
+//                let imageDir = snapshotValue["imageDir"] as! String
+//
+//                let post = Post(snapshot: document)
+//
+//                post.getImage(imageDir: imageDir) {
+//                    self.listOfPosts.append(post)
+//                    self.postTableView.reloadData()
+//                    }
+//                }
+//                self.postTableView.reloadData()
+//            }
+//
+//        }
+    
+    
+//    func getImage(imageDir: String) -> UIImage? {
+//        let storageRef = Storage.storage().reference(withPath: imageDir)
+//        var downloadedImage: UIImage?
+//        storageRef.getData(maxSize: 4 * 1024 * 1024) {
+//            (data, error) in
+//            if let error = error {
+//                print("error: \(error.localizedDescription)")
+//                return
+//            }
+//            if let data = data {
+//                 downloadedImage = UIImage(data: data)
+//            }
+//        }
+//        return downloadedImage
+//
+//    }
     
     @IBAction func increaseRatingValue(_ sender: UIButton) {
         guard let cell = sender.superview?.superview as? PostTableViewCell else {
@@ -63,7 +129,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let currentPost: Post = listOfPosts[indexPath.row]
             
+            let newValue = currentPost.ratingOfDeal + 1
+            
             currentPost.ratingOfDeal += 1
+            
+            updateRatingValue(of: currentPost, with: newValue)
             
             postTableView.reloadData()
         }
@@ -79,7 +149,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let currentPost: Post = listOfPosts[indexPath.row]
             
+            let newValue = currentPost.ratingOfDeal - 1
+            
             currentPost.ratingOfDeal -= 1
+            
+            updateRatingValue(of: currentPost, with: newValue)
             
             postTableView.reloadData()
         }

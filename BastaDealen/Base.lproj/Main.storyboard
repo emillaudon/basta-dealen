@@ -336,13 +336,12 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4Z-bQ-0gN">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="uploadButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4Z-bQ-0gN">
                                         <rect key="frame" x="363" y="46" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="post:" destination="SEb-pH-zaz" eventType="touchUpInside" id="MdP-zz-1ab"/>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="cdO-we-R1r"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Välj Plats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0LD-uY-4Cl">
@@ -372,6 +371,10 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
+                                    <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tDu-C2-jWo">
+                                        <rect key="frame" x="54" y="549" width="304" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -382,6 +385,9 @@
                     <connections>
                         <outlet property="locationInputField" destination="Eu4-nC-K7b" id="TAG-Kw-rRP"/>
                         <outlet property="locationInputFieldView" destination="aGv-7x-J1e" id="aL6-vR-5eT"/>
+                        <outlet property="progressViewBar" destination="tDu-C2-jWo" id="Nte-Hg-ebA"/>
+                        <outlet property="uploadButton" destination="e4Z-bQ-0gN" id="Qqz-IY-CZx"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toFirstPageSegue" modalPresentationStyle="fullScreen" id="w9Y-hG-Jzo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="od5-gI-iIh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

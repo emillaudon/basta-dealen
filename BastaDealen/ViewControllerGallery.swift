@@ -8,13 +8,14 @@
 
 import UIKit
 import Photos
+import Firebase
+import FirebaseStorage
 
 extension UIImageView {
     func setImageColor(color: UIColor) {
         let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
         self.image = templateImage
         self.tintColor = color
-        
     }
 }
 
@@ -34,9 +35,6 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     
     @IBOutlet weak var newPostImage: UIImageView!
     @IBOutlet weak var galleryView: UICollectionView!
-    
-    
-    
     
     let listOfPictures: [Pictures] = [.download, .download1, .download2, .download3, .download4, .download5, .download6, .download7, .download8, .download9, .download10, .download11]
 
@@ -148,6 +146,10 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
         let destinationVC = segue.destination as! ViewControllerLocation
         
+        if imageToSend == nil {
+            imageToSend = newPostImage.image
+        }
+        
         destinationVC.imageSelected = imageToSend
         destinationVC.listOfPosts = listOfPosts
     }
@@ -199,15 +201,5 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         
     }
 }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 
