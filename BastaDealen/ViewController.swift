@@ -46,22 +46,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 (snapshot, error) in
                 guard let documents = snapshot?.documents else {return}
                 
-                self.listOfPosts.removeAll()
+                //self.listOfPosts.removeAll()
                 
                 
                 for document in documents {
-                    let snapshotValue = document.data() as [String : Any]
-                    let imageDir = snapshotValue["imageDir"] as! String
-                    
-                    let post = Post(snapshot: document)
-                    
-                    post.getImage(imageDir: imageDir) {
-                        self.listOfPosts.append(post)
-                        self.postTableView.reloadData()
+                    if !self.checkIfPostExists(snapshot: document) {
+                        
+                        let snapshotValue = document.data() as [String : Any]
+                        
+                        let imageDir = snapshotValue["imageDir"] as! String
+                        
+                        let post = Post(snapshot: document)
+                        
+                        post.getImage(imageDir: imageDir) {
+                            self.listOfPosts.append(post)
+                            self.postTableView.reloadData()
+                        }
                     }
                 }
             }
         }
+    }
+    
+    func checkIfPostExists(snapshot: QueryDocumentSnapshot) -> Bool {
+        let snapshotValue = snapshot.data() as [String : Any]
+        
+        for post in listOfPosts {
+            if post.postID == snapshotValue["postRefID"] as! String {
+                if post.ratingOfDeal != snapshotValue["rating"] as! Int {
+                    post.ratingOfDeal = snapshotValue["rating"] as! Int
+                    self.postTableView.reloadData()
+                }
+                return true
+            }
+        }
+        return false
     }
     
     
@@ -135,7 +154,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             updateRatingValue(of: currentPost, with: newValue)
             
-            postTableView.reloadData()
+            cell.ratingLabel.text = String(newValue)
+            
+            
+            //postTableView.reloadData()
         }
     }
     
@@ -155,7 +177,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             updateRatingValue(of: currentPost, with: newValue)
             
-            postTableView.reloadData()
+            cell.ratingLabel.text = String(newValue)
+            
+            //postTableView.reloadData()
         }
     }
     
