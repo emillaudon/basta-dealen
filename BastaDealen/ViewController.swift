@@ -157,7 +157,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.ratingLabel.text = String(newValue)
             
             
-            //postTableView.reloadData()
+            postTableView.reloadData()
         }
     }
     
@@ -179,7 +179,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.ratingLabel.text = String(newValue)
             
-            //postTableView.reloadData()
+            postTableView.reloadData()
         }
     }
     
