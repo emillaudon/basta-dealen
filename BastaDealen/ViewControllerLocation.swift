@@ -157,6 +157,11 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        locationInputField.text = previousLocations[indexPath.row].locationName
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
         let destinationVC = segue.destination as! ViewController
         
