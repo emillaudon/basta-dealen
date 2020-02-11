@@ -30,8 +30,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         assemblePostArray()
-        
-
     }
     
     @IBAction func sortingButtonTapped(_ sender: UIButton) {
@@ -62,11 +60,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case .newestFirst:
             print("newest first")
             currentSorting = .newestFirst
-            postTableView.reloadData()
+            reloadTableView()
             
         case .bestDeal:
             currentSorting = .bestDeal
-            postTableView.reloadData()
+            reloadTableView()
         }
     }
     
@@ -105,7 +103,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         
                         post.getImage(imageDir: imageDir) {
                             self.listOfPosts.append(post)
-                            self.postTableView.reloadData()
+                            self.reloadTableView()
                         }
                     }
                 }
@@ -120,7 +118,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if post.postID == snapshotValue["postRefID"] as! String {
                 if post.ratingOfDeal != snapshotValue["rating"] as! Int {
                     post.ratingOfDeal = snapshotValue["rating"] as! Int
-                    self.postTableView.reloadData()
+                    reloadTableView()
                 }
                 return true
             }
@@ -129,11 +127,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    func updateRatingValue(of post: Post, with newRating: Int) {
+    func updateRatingValue(of post: Post, with newRating: Int, completion: () -> ()) {
         
         db = Firestore.firestore()
         
         db.collection("Posts").document(post.postID).updateData(["rating" : newRating])
+        
+        completion()
     }
     
     func sortPostArray() {
@@ -147,6 +147,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
         
+    }
+    
+    func reloadTableView() {
+        UIView.transition(with: postTableView,
+        duration: 0.35,
+        options: .transitionCrossDissolve,
+        animations: { self.postTableView.reloadData() })
     }
     
     @IBAction func increaseRatingValue(_ sender: UIButton) {
@@ -163,12 +170,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             currentPost.ratingOfDeal += 1
             
-            updateRatingValue(of: currentPost, with: newValue)
-            
             cell.ratingLabel.text = String(newValue)
             
-            
-            postTableView.reloadData()
+            updateRatingValue(of: currentPost, with: newValue) {
+                reloadTableView()
+            }
         }
     }
     
@@ -186,11 +192,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             currentPost.ratingOfDeal -= 1
             
-            updateRatingValue(of: currentPost, with: newValue)
-            
             cell.ratingLabel.text = String(newValue)
             
-            postTableView.reloadData()
+            updateRatingValue(of: currentPost, with: newValue) {
+                reloadTableView()
+            }
         }
     }
     
@@ -201,6 +207,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         
             sortPostArray()
             
