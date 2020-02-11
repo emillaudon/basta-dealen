@@ -66,7 +66,11 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
 
                         let location = Location(document: document)
                         
-                        self.previousLocations.append(location)
+                        if !self.previousLocations.contains(location) && location.locationName != "" {
+                            self.previousLocations.append(location)
+                        }
+                        
+                        
                 }
                 
                 self.previousLocations = self.previousLocations.sorted()

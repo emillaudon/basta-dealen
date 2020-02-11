@@ -28,7 +28,7 @@ class Location: Comparable {
     }
     
     static func == (lhs: Location, rhs: Location) -> Bool {
-        return lhs.locationNumber == rhs.locationNumber
+        return lhs.locationName == rhs.locationName
     }
 }
 
