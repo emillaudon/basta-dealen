@@ -108,7 +108,7 @@
                                     <color key="titleColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Uw2-Rn-i1T" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="LKW-7q-tdN"/>
+                                    <action selector="toUploadButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B6h-ae-w61"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z5u-u2-jrZ" userLabel="TopView">
@@ -133,11 +133,12 @@
                     </view>
                     <connections>
                         <outlet property="postTableView" destination="bu5-Sp-TTT" id="u2h-Sc-QBc"/>
+                        <segue destination="z9h-bz-Fkh" kind="presentation" identifier="toUploadSegue" modalPresentationStyle="fullScreen" id="IcE-OY-Dnf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14.492753623188406" y="115.84821428571428"/>
+            <point key="canvasLocation" x="590" y="116"/>
         </scene>
         <!--View Controller Camera-->
         <scene sceneID="Vit-xn-iDl">
@@ -205,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="USM-bT-D6j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="844.92753623188412" y="117.85714285714285"/>
+            <point key="canvasLocation" x="590" y="-589"/>
         </scene>
         <!--View Controller Gallery-->
         <scene sceneID="67h-r2-jin">
@@ -220,17 +221,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZm-DV-RFV">
-                                        <rect key="frame" x="5" y="46" width="46" height="30"/>
+                                        <rect key="frame" x="8" y="46" width="53" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8O-Si-FsI">
-                                        <rect key="frame" x="363" y="46" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="toLocationButton:" destination="z9h-bz-Fkh" eventType="touchUpInside" id="sqn-ZF-jfr"/>
-                                        </connections>
+                                        <state key="normal" title="Tillbaka">
+                                            <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Välj Bild" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyt-ge-SZN">
                                         <rect key="frame" x="158" y="44" width="98" height="35"/>
@@ -239,6 +234,16 @@
                                         <color key="textColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8O-Si-FsI">
+                                        <rect key="frame" x="366" y="46" width="40" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Nästa">
+                                            <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toLocationButton:" destination="z9h-bz-Fkh" eventType="touchUpInside" id="sqn-ZF-jfr"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -332,15 +337,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTN-Gh-abi">
-                                        <rect key="frame" x="5" y="46" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="uploadButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4Z-bQ-0gN">
-                                        <rect key="frame" x="363" y="46" width="46" height="30"/>
+                                        <rect key="frame" x="333" y="44" width="73" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Ladda upp">
+                                            <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
                                         <connections>
                                             <action selector="post:" destination="SEb-pH-zaz" eventType="touchUpInside" id="MdP-zz-1ab"/>
                                         </connections>
@@ -352,6 +354,13 @@
                                         <color key="textColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTN-Gh-abi">
+                                        <rect key="frame" x="8" y="44" width="53" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Tillbaka">
+                                            <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -437,4 +446,7 @@
         <image name="camera.fill" catalog="system" width="64" height="48"/>
         <image name="ellipse" width="26" height="26"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="IcE-OY-Dnf"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -29,6 +29,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     
+    
+    @IBAction func toUploadButtonPress(_ sender: Any) {
+        performSegue(withIdentifier: "toUploadSegue", sender: self)
+    }
+    
     func assemblePostArray() {
         db = Firestore.firestore()
         
