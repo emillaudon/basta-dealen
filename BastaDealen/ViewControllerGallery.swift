@@ -50,6 +50,8 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         newPostImage.image = imageToSend
     }
     
+    
+    
     @IBAction func toLocationButton(_ sender: Any) {
         if newPostImage.image == nil {
             let alert = UIAlertController(title: "Har du valt en bild?", message: "Du måste välja en bild.", preferredStyle: .alert)

@@ -20,13 +20,60 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var location: String?
     var newPost: Post?
     
+    var currentSorting: sortingOptions = .bestDeal
+    
     @IBOutlet weak var postTableView: UITableView!
+    
+    @IBOutlet var sortingButtons: [UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         assemblePostArray()
+        
 
+    }
+    
+    @IBAction func sortingButtonTapped(_ sender: UIButton) {
+        sortingButtons.forEach { (button) in
+            UIView.animate(withDuration: 0.1, animations: {
+                button.isHidden = !button.isHidden
+                if button.isHidden {
+                sender.backgroundColor = UIColor(red: 209/255, green: 90/255, blue: 124/255, alpha: 0)
+                } else {
+                    sender.backgroundColor = UIColor(red: 209/255, green: 90/255, blue: 124/255, alpha: 1)
+                }
+            })
+            
+        }
+        
+    }
+    
+    enum sortingOptions: String {
+        case newestFirst = "Nyast Först"
+        case bestDeal = "Bästa Dealen"
+    }
+    
+    @IBAction func sortingOptionTapped(_ sender: UIButton) {
+        guard let currentTitle = sender.currentTitle, let sortingOption = sortingOptions(rawValue: currentTitle) else {return}
+        
+        switch sortingOption {
+            
+        case .newestFirst:
+            print("newest first")
+            currentSorting = .newestFirst
+            
+           // images.sorted({ $0.fileID > $1.fileID })
+
+            listOfPosts = listOfPosts.sorted(by: {$0.postNumber > $1.postNumber })
+            postTableView.reloadData()
+            
+        case .bestDeal:
+            print("best deal")
+            currentSorting = .bestDeal
+            listOfPosts = listOfPosts.sorted(by: {$0.ratingOfDeal > $1.ratingOfDeal })
+            postTableView.reloadData()
+        }
     }
     
     
@@ -94,6 +141,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         db.collection("Posts").document(post.postID).updateData(["rating" : newRating])
     }
+    
+    func sortPostArray() {
+        switch currentSorting {
+            
+        case .bestDeal:
+            listOfPosts = listOfPosts.sorted(by: { $0.ratingOfDeal > $1.ratingOfDeal })
+            
+        case .newestFirst:
+            listOfPosts = listOfPosts.sorted(by: {$0.postNumber > $1.postNumber })
+            
+        }
+        
+    }
+    
+    
         
 //        func addListener() {
 //            db = Firestore.firestore()
@@ -194,9 +256,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+            sortPostArray()
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
-            listOfPosts = listOfPosts.sorted(by: { $0.ratingOfDeal > $1.ratingOfDeal })
             let post = listOfPosts[indexPath.row]
             
             cell.locationLabel.text = post.locationOfItem

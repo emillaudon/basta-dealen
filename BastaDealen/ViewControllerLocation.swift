@@ -97,12 +97,20 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
         postRefID = UUID.init().uuidString
         
         uploadLocation()
+    
+        getPostCount() {
+            (postCount) in
+            
+            self.db.collection("Posts").document(self.postRefID).setData([
+                "location" : self.location as Any,
+            "rating" : 0,
+            "imageDir" : pictureRef as Any,
+            "postRefID" : self.postRefID as Any,
+            "postNumber" : postCount as Any])
+        }
         
-        db.collection("Posts").document(postRefID).setData([
-            "location" : location as Any,
-        "rating" : 0,
-        "imageDir" : pictureRef as Any,
-        "postRefID" : postRefID as Any])
+        
+        
         
 //        let postsRef = db.collection("Posts")
         
@@ -136,6 +144,33 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
             }
                 print("laddar")
             self.uploadPost(pictureRef: uploadRefId)
+        }
+    }
+    
+    func getPostCount(completion:@escaping (Int) -> ()) {
+        
+        let postCountRef = db.collection("PostsCount")
+        
+        db = Firestore.firestore()
+        
+        postCountRef.getDocuments() {
+            (snapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            guard let documents = snapshot?.documents else {return}
+            
+            for document in documents {
+                let snapShotValue = document.data() as! [String : Int]
+                
+                guard let postCount: Int = snapShotValue["posted"] else {return}
+                
+                self.db.collection("PostsCount").document("postsCount").setData(["posted" : postCount + 1 as Any])
+                
+                completion(postCount + 1)
+            }
+            
         }
     }
         

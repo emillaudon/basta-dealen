@@ -16,6 +16,7 @@ class Post {
     let locationOfItem: String
     var ratingOfDeal: Int
     let postID: String
+    let postNumber: Int
 
     
     init(imageSrc: String, location: String) {
@@ -29,6 +30,7 @@ class Post {
         self.locationOfItem = location
         self.ratingOfDeal = 0
         self.postID = "."
+        self.postNumber = 1
         
     }
     init(image: UIImage?, location: String){
@@ -41,6 +43,7 @@ class Post {
         self.locationOfItem = location
         self.ratingOfDeal = 0
         self.postID = "."
+        self.postNumber = 1
     }
     
     init(snapshot: QueryDocumentSnapshot) {
@@ -51,6 +54,7 @@ class Post {
         
         //self.postID = snapshotValue["postID"] as! String
         self.postID = snapshotValue["postRefID"] as! String
+        self.postNumber = snapshotValue["postNumber"] as! Int
 
     }
     

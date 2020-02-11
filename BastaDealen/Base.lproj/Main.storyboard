@@ -100,17 +100,11 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.53725490200000003" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-1t-9mN">
-                                <rect key="frame" x="307" y="731" width="75" height="72"/>
+                            <view alpha="0.25" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f3f-hA-3W5" userLabel="Shadow">
+                                <rect key="frame" x="0.0" y="140" width="414" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <state key="normal" backgroundImage="ellipse">
-                                    <color key="titleColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="toUploadButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B6h-ae-w61"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z5u-u2-jrZ" userLabel="TopView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="143"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -122,23 +116,93 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <view alpha="0.25" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f3f-hA-3W5" userLabel="Shadow">
-                                <rect key="frame" x="0.0" y="140" width="414" height="2"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-1t-9mN">
+                                <rect key="frame" x="307" y="731" width="75" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                <state key="normal" backgroundImage="ellipse">
+                                    <color key="titleColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="toUploadButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B6h-ae-w61"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWo-n7-Ec8">
+                                <rect key="frame" x="0.0" y="94" width="235" height="195"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="s4v-KG-gnS">
+                                        <rect key="frame" x="8" y="12" width="90" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5MQ-tc-pKe">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="opc-hw-OrI"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.26274141670000001" green="0.262743175" blue="0.26274773480000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="Sortering" image="arrow.down" catalog="system">
+                                                    <color key="titleColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="sortingButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8x1-NL-Vxs"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tzY-mw-p0W">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>
+                                                <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="D6b-zt-R4m"/>
+                                                </constraints>
+                                                <state key="normal" title="Nyast Först">
+                                                    <color key="titleColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="sortingOptionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nyX-ew-tNI"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQE-wg-9nv">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>
+                                                <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="gFf-rG-Zp7"/>
+                                                </constraints>
+                                                <state key="normal" title="Bästa Dealen">
+                                                    <color key="titleColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="sortingOptionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V1d-CS-XPY"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="s4v-KG-gnS" firstAttribute="top" secondItem="FWo-n7-Ec8" secondAttribute="top" constant="12" id="eI9-pb-VwK"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.53725490200000003" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FWo-n7-Ec8" secondAttribute="trailing" constant="179" id="oB7-CL-HjA"/>
+                            <constraint firstItem="FWo-n7-Ec8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="rt2-Qt-s3D"/>
+                            <constraint firstItem="FWo-n7-Ec8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s5F-H1-fqT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FWo-n7-Ec8" secondAttribute="bottom" constant="573" id="z91-BP-ozi"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="postTableView" destination="bu5-Sp-TTT" id="u2h-Sc-QBc"/>
+                        <outletCollection property="sortingButtons" destination="tzY-mw-p0W" collectionClass="NSMutableArray" id="C9t-0u-sWe"/>
+                        <outletCollection property="sortingButtons" destination="oQE-wg-9nv" collectionClass="NSMutableArray" id="fcg-dg-wRK"/>
                         <segue destination="z9h-bz-Fkh" kind="presentation" identifier="toUploadSegue" modalPresentationStyle="fullScreen" id="IcE-OY-Dnf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590" y="116"/>
+            <point key="canvasLocation" x="589.85507246376812" y="115.84821428571428"/>
         </scene>
         <!--View Controller Camera-->
         <scene sceneID="Vit-xn-iDl">
@@ -441,6 +505,7 @@
     <resources>
         <image name="BastaDealen" width="835" height="407"/>
         <image name="Places" width="6.6666665077209473" height="6.6666665077209473"/>
+        <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="arrow.down.square.fill" catalog="system" width="64" height="56"/>
         <image name="arrow.up.square.fill" catalog="system" width="64" height="56"/>
         <image name="camera.fill" catalog="system" width="64" height="48"/>
