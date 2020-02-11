@@ -43,11 +43,19 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func post(_ sender: UIButton) {
-        location = locationInputField.text
         
-        uploadToDatabase()
-        
-        performSegue(withIdentifier: "toFirstPageSegue", sender: self)
+        if locationInputField.text == "" || locationInputField.text == " " {
+            let alert = UIAlertController(title: "Har du valt en plats?", message: "Du måste välja en plats för att ladda upp din bild.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        } else {
+            
+            location = locationInputField.text
+            
+            uploadToDatabase()
+            
+            performSegue(withIdentifier: "toFirstPageSegue", sender: self)
+        }
     }
     
     func getPreviousLocations() {
