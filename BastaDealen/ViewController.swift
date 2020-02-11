@@ -18,7 +18,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var imageSelected: UIImage?
     var location: String?
-    var sentListOfPosts: [Post]?
     var newPost: Post?
     
     @IBOutlet weak var postTableView: UITableView!
@@ -208,11 +207,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! ViewControllerCamera
-        
-        destinationVC.listOfPosts = listOfPosts
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destinationVC = segue.destination as! ViewControllerCamera
+//
+//    }
     
     
     

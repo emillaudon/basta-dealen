@@ -36,7 +36,7 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var newPostImage: UIImageView!
     @IBOutlet weak var galleryView: UICollectionView!
     
-    let listOfPictures: [Pictures] = [.download, .download1, .download2, .download3, .download4, .download5, .download6, .download7, .download8, .download9, .download10, .download11]
+    let listOfPictures: [Pictures] = [.download1, .download2, .download3, .download4, .download5, .download6, .download7, .download8, .download9, .download10, .download11]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,7 +151,6 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         }
         
         destinationVC.imageSelected = imageToSend
-        destinationVC.listOfPosts = listOfPosts
     }
     
     func grabPhotosFromPhone() {

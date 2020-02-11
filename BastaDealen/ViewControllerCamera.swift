@@ -11,8 +11,6 @@ import AVFoundation
 
 class ViewControllerCamera: UIViewController {
     
-    var listOfPosts: [Post]?
-    
     let captureSession = AVCaptureSession()
     var previewLayer:CALayer!
     
@@ -32,10 +30,7 @@ class ViewControllerCamera: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ViewControllerGallery
-        
-        destinationVC.listOfPosts = listOfPosts
-        
-        print("körd")
+
     }
 }
     

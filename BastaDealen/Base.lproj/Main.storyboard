@@ -375,6 +375,38 @@
                                         <rect key="frame" x="54" y="549" width="304" height="2"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </progressView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cp5-LB-deI">
+                                        <rect key="frame" x="8" y="70" width="398" height="481"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="locationCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="locationCell" id="mrQ-Oc-Ttd" customClass="LocationCell" customModule="BastaDealen" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="398" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mrQ-Oc-Ttd" id="pVQ-ho-hUN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="locationLabel" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlP-Tz-XwG">
+                                                            <rect key="frame" x="35" y="11" width="340" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="locationLabel" destination="FlP-Tz-XwG" id="57g-M2-QkC"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="SEb-pH-zaz" id="Qbt-xR-CEh"/>
+                                            <outlet property="delegate" destination="SEb-pH-zaz" id="iC5-Az-h2M"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -385,6 +417,7 @@
                     <connections>
                         <outlet property="locationInputField" destination="Eu4-nC-K7b" id="TAG-Kw-rRP"/>
                         <outlet property="locationInputFieldView" destination="aGv-7x-J1e" id="aL6-vR-5eT"/>
+                        <outlet property="previousLocationsTableView" destination="cp5-LB-deI" id="dh0-PU-a9q"/>
                         <outlet property="progressViewBar" destination="tDu-C2-jWo" id="Nte-Hg-ebA"/>
                         <outlet property="uploadButton" destination="e4Z-bQ-0gN" id="Qqz-IY-CZx"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toFirstPageSegue" modalPresentationStyle="fullScreen" id="w9Y-hG-Jzo"/>

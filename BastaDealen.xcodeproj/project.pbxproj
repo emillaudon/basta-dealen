@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		201DEB1D23D72CEA002020E5 /* ViewControllerCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201DEB1C23D72CEA002020E5 /* ViewControllerCamera.swift */; };
 		204A6A8323D5D997001D0B46 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204A6A8223D5D997001D0B46 /* Post.swift */; };
 		206B0EF123EAD2CC00FA3611 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 206B0EF023EAD2CC00FA3611 /* GoogleService-Info.plist */; };
+		206B0F6D23EEBF1700FA3611 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206B0F6C23EEBF1700FA3611 /* Location.swift */; };
 		207D7C3023D6EA7600A1C6D0 /* ViewControllerGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D7C2F23D6EA7600A1C6D0 /* ViewControllerGallery.swift */; };
 		207D7C3223D6F37200A1C6D0 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D7C3123D6F37200A1C6D0 /* GalleryCell.swift */; };
 		207D7C3423D71BBA00A1C6D0 /* ViewControllerLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D7C3323D71BBA00A1C6D0 /* ViewControllerLocation.swift */; };
@@ -61,6 +62,7 @@
 		201DEB1C23D72CEA002020E5 /* ViewControllerCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerCamera.swift; sourceTree = "<group>"; };
 		204A6A8223D5D997001D0B46 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		206B0EF023EAD2CC00FA3611 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		206B0F6C23EEBF1700FA3611 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		207D7C2F23D6EA7600A1C6D0 /* ViewControllerGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerGallery.swift; sourceTree = "<group>"; };
 		207D7C3123D6F37200A1C6D0 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
 		207D7C3323D71BBA00A1C6D0 /* ViewControllerLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLocation.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				20150AE423D5B74A001F7417 /* Main.storyboard */,
 				201DEB1C23D72CEA002020E5 /* ViewControllerCamera.swift */,
 				207D7C3323D71BBA00A1C6D0 /* ViewControllerLocation.swift */,
+				206B0F6C23EEBF1700FA3611 /* Location.swift */,
 				207D7C3123D6F37200A1C6D0 /* GalleryCell.swift */,
 				207D7C2F23D6EA7600A1C6D0 /* ViewControllerGallery.swift */,
 				20150AE723D5B74C001F7417 /* Assets.xcassets */,
@@ -183,7 +186,6 @@
 				79C625FE810DCE6859955496 /* Pods-BastaDealenTests.debug.xcconfig */,
 				C5820DBDE5BA9E87D35373C0 /* Pods-BastaDealenTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -431,6 +433,7 @@
 				20150AE323D5B74A001F7417 /* ViewController.swift in Sources */,
 				20150ADF23D5B74A001F7417 /* AppDelegate.swift in Sources */,
 				207D7C3023D6EA7600A1C6D0 /* ViewControllerGallery.swift in Sources */,
+				206B0F6D23EEBF1700FA3611 /* Location.swift in Sources */,
 				20150AE123D5B74A001F7417 /* SceneDelegate.swift in Sources */,
 				201DEB1D23D72CEA002020E5 /* ViewControllerCamera.swift in Sources */,
 				204A6A8323D5D997001D0B46 /* Post.swift in Sources */,

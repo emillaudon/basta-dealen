@@ -11,7 +11,10 @@ import Photos
 import Firebase
 import FirebaseStorage
 
-class ViewControllerLocation: UIViewController {
+class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var previousLocationsTableView: UITableView!
+    
     @IBOutlet weak var locationInputField: UITextField!
     @IBOutlet weak var locationInputFieldView: UIView!
     
@@ -21,7 +24,7 @@ class ViewControllerLocation: UIViewController {
     
     var db: Firestore!
     
-    var listOfPosts: [Post]?
+    var previousLocations = [Location]()
     
     var imageSelected: UIImage?
     var location: String?
@@ -31,6 +34,8 @@ class ViewControllerLocation: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         locationInputFieldView.layer.cornerRadius = 10
+        previousLocationsTableView.layer.cornerRadius = 10
+        getPreviousLocations()
         if imageSelected != nil {
             print("inte nil")
         }
@@ -45,11 +50,41 @@ class ViewControllerLocation: UIViewController {
         performSegue(withIdentifier: "toFirstPageSegue", sender: self)
     }
     
+    func getPreviousLocations() {
+            db = Firestore.firestore()
+
+            let locationRef = db.collection("locations").document("user").collection("addedLocations")
+
+            locationRef.getDocuments() {
+                (snapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let documents = snapshot?.documents else {return}
+                    for document in documents {
+
+                        let location = Location(document: document)
+                        
+                        self.previousLocations.append(location)
+                }
+                
+                self.previousLocations = self.previousLocations.sorted()
+                self.previousLocationsTableView.reloadData()
+ 
+        }
+    }
+    
+                            
+    
+    
     func uploadPost(pictureRef: String) {
         
         db = Firestore.firestore()
         
         postRefID = UUID.init().uuidString
+        
+        uploadLocation()
         
         db.collection("Posts").document(postRefID).setData([
             "location" : location as Any,
@@ -62,6 +97,12 @@ class ViewControllerLocation: UIViewController {
 //        postsRef.addDocument(data: ["location" : location as Any,
 //                                    "rating" : 0,
 //                                    "imageDir" : uploadRefId as Any])
+    }
+    
+    func uploadLocation() {
+        db = Firestore.firestore()
+    db.collection("locations").document("user").collection("addedLocations").addDocument(data: ["location" : location as Any,
+                            "number" : previousLocations.count as Any])
     }
     
     
@@ -102,6 +143,19 @@ class ViewControllerLocation: UIViewController {
 //
 //        }
 //    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return previousLocations.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath) as! LocationCell
+        let locationName = previousLocations[indexPath.row].locationName
+        
+        cell.locationLabel.text = locationName
+        
+        return cell
+        
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
         let destinationVC = segue.destination as! ViewController
@@ -109,8 +163,5 @@ class ViewControllerLocation: UIViewController {
         destinationVC.imageSelected = imageSelected
         destinationVC.location = locationInputField.text
         
-        if let listOfPostsToSend: [Post] = listOfPosts {
-            destinationVC.listOfPosts = listOfPostsToSend
-        }
     }
 }
