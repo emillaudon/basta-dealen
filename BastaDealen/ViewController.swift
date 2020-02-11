@@ -62,16 +62,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case .newestFirst:
             print("newest first")
             currentSorting = .newestFirst
-            
-           // images.sorted({ $0.fileID > $1.fileID })
-
-            listOfPosts = listOfPosts.sorted(by: {$0.postNumber > $1.postNumber })
             postTableView.reloadData()
             
         case .bestDeal:
-            print("best deal")
             currentSorting = .bestDeal
-            listOfPosts = listOfPosts.sorted(by: {$0.ratingOfDeal > $1.ratingOfDeal })
             postTableView.reloadData()
         }
     }
@@ -154,55 +148,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
-    
-        
-//        func addListener() {
-//            db = Firestore.firestore()
-//
-//            let postRef = db.collection("Posts")
-//
-//            postRef.addSnapshotListener() {
-//                (snapshot, error) in
-//
-//                self.listOfPosts.removeAll()
-//
-//                guard let documents = snapshot?.documents else {return}
-//
-//                for document in documents {
-//
-//                let snapshotValue = document.data() as [String : Any]
-//                let imageDir = snapshotValue["imageDir"] as! String
-//
-//                let post = Post(snapshot: document)
-//
-//                post.getImage(imageDir: imageDir) {
-//                    self.listOfPosts.append(post)
-//                    self.postTableView.reloadData()
-//                    }
-//                }
-//                self.postTableView.reloadData()
-//            }
-//
-//        }
-    
-    
-//    func getImage(imageDir: String) -> UIImage? {
-//        let storageRef = Storage.storage().reference(withPath: imageDir)
-//        var downloadedImage: UIImage?
-//        storageRef.getData(maxSize: 4 * 1024 * 1024) {
-//            (data, error) in
-//            if let error = error {
-//                print("error: \(error.localizedDescription)")
-//                return
-//            }
-//            if let data = data {
-//                 downloadedImage = UIImage(data: data)
-//            }
-//        }
-//        return downloadedImage
-//
-//    }
     
     @IBAction func increaseRatingValue(_ sender: UIButton) {
         guard let cell = sender.superview?.superview as? PostTableViewCell else {
