@@ -229,7 +229,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
-                                            <segue destination="SEb-pH-zaz" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="0fn-vz-WjM"/>
+                                            <action selector="toLocationButton:" destination="z9h-bz-Fkh" eventType="touchUpInside" id="sqn-ZF-jfr"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Välj Bild" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyt-ge-SZN">
@@ -313,6 +313,7 @@
                     <connections>
                         <outlet property="galleryView" destination="b0x-p6-QB4" id="0gR-Wy-SGZ"/>
                         <outlet property="newPostImage" destination="UIu-oQ-37F" id="kCT-dY-fAQ"/>
+                        <segue destination="SEb-pH-zaz" kind="presentation" identifier="toLocationSegue" modalPresentationStyle="fullScreen" id="60g-QV-ZTX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0sO-7H-PpL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

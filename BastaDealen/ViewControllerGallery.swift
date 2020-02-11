@@ -50,6 +50,16 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
         newPostImage.image = imageToSend
     }
     
+    @IBAction func toLocationButton(_ sender: Any) {
+        if newPostImage.image == nil {
+            let alert = UIAlertController(title: "Har du valt en bild?", message: "Du måste välja en bild.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
+        
+        performSegue(withIdentifier: "toLocationSegue", sender: self)
+    }
+    
     
     func setUpCollectionViewCells() {
         let layout = UICollectionViewFlowLayout()
