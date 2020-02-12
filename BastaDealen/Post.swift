@@ -83,6 +83,23 @@ class Post {
     }
 }
 
+struct Vote {
+    let postID: String
+    var isUpVote: Bool
+    
+    init(postID: String, isUpVote: Bool) {
+        self.postID = postID
+        self.isUpVote = isUpVote
+    }
+    
+    init(document: QueryDocumentSnapshot) {
+        let documentData = document.data()
+        
+        self.postID = documentData["postID"] as! String
+        self.isUpVote = documentData["isUpVote"] as! Bool
+    }
+}
+
 
 
 class PostTableViewCell: UITableViewCell {

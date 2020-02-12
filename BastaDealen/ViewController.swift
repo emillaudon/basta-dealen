@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isAnon: Bool?
     
     var postsVotedFor = [String]()
+    var postVotes = [Vote]()
     
     var db: Firestore!
 
@@ -149,23 +150,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    func updateRatingValue(of post: Post, with newRating: Int, completion: () -> ()) {
-        postsVotedFor.append(post.postID)
+    func updateRatingValue(of post: Post, with newRating: Int, isAnUpVote: Bool, completion: () -> ()) {
+        postVotes.append(Vote(postID: post.postID, isUpVote: isAnUpVote))
         
         db = Firestore.firestore()
         
         db.collection("Posts").document(post.postID).updateData(["rating" : newRating])
         
-        saveVoteToUser(from: post)
+        saveVoteToUser(on: post, isUpVote: isAnUpVote)
         
         completion()
     }
     
-    func saveVoteToUser(from post: Post) {
+    func saveVoteToUser(on post: Post, isUpVote: Bool) {
         db = Firestore.firestore()
         
         if let userID = userID {
-            db.collection("users").document(userID).collection("postsVotedFor").document(post.postID).setData(["postID" : post.postID])
+            db.collection("users").document(userID).collection("postsVotedFor").document(post.postID).setData(["postID" : post.postID,
+                                                                                                               "isUpVote" : isUpVote ])
         }
     }
     
@@ -184,32 +186,55 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 guard let collection = snapshot?.documents else {return}
                 
-                var downloadedPosts = [String]()
+                //var downloadedPosts = [String]()
+                var downloadedVotes = [Vote]()
                 
                 for document in collection {
-                    let documentData = document.data() as! [String : String]
+                    //let documentData = document.data() as! [String : String]
                     
-                    guard let votedPostName = documentData["postID"] else {return}
+                    let vote = Vote(document: document)
                     
-                    downloadedPosts.append(votedPostName)
+                    //guard let votedPostName = documentData["postID"] else {return}
                     
-                    print(votedPostName)
+                    //downloadedPosts.append(votedPostName)
+                    downloadedVotes.append(vote)
+                    
+                    //print(votedPostName)
                 }
-                self.postsVotedFor = downloadedPosts
+                self.postVotes = downloadedVotes
+                //self.postsVotedFor = downloadedPosts
             }
         }
     }
     
     func checkIfPostIsVotedFor(_ post: Post, in cell: PostTableViewCell) {
         
-        if postsVotedFor.contains(post.postID) {
-            cell.voteUpButton.isEnabled = false
-            cell.voteDownButton.isEnabled = false
-        } else {
-            cell.voteUpButton.isEnabled = true
-            cell.voteDownButton.isEnabled = true
+        for vote in postVotes {
+            if vote.postID == post.postID {
+                if vote.isUpVote {
+                    cell.voteUpButton.isEnabled = false
+                    cell.voteDownButton.isEnabled = true
+                    return
+                } else {
+                    cell.voteUpButton.isEnabled = true
+                    cell.voteDownButton.isEnabled = false
+                    return
+                }
+            }
         }
+        cell.voteUpButton.isEnabled = true
+        cell.voteDownButton.isEnabled = true
     }
+        
+        
+        
+//        if postsVotedFor.contains(post.postID) {
+//            cell.voteUpButton.isEnabled = false
+//            cell.voteDownButton.isEnabled = false
+//        } else {
+//            cell.voteUpButton.isEnabled = true
+//            cell.voteDownButton.isEnabled = true
+//        }
     
     func sortPostArray() {
         switch currentSorting {
@@ -247,7 +272,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.ratingLabel.text = String(newValue)
             
-            updateRatingValue(of: currentPost, with: newValue) {
+            updateRatingValue(of: currentPost, with: newValue, isAnUpVote: true) {
                 reloadTableView()
             }
         }
@@ -269,7 +294,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.ratingLabel.text = String(newValue)
             
-            updateRatingValue(of: currentPost, with: newValue) {
+            updateRatingValue(of: currentPost, with: newValue, isAnUpVote: false) {
                 reloadTableView()
             }
         }
