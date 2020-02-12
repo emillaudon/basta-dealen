@@ -9,7 +9,7 @@ target 'BastaDealen' do
 pod 'Firebase/Firestore'
 pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Storage'
-
+pod 'Firebase/Auth'
   target 'BastaDealenTests' do
     inherit! :search_paths
     # Pods for testing

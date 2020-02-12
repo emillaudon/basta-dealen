@@ -94,5 +94,8 @@ class PostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var ratingLabel: UILabel!
     
+    @IBOutlet weak var voteUpButton: UIButton!
+    
+    @IBOutlet weak var voteDownButton: UIButton!
 }
 

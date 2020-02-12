@@ -89,6 +89,8 @@
                                                     <outlet property="postImage" destination="Y02-Ud-AoI" id="nIq-SO-5Tn"/>
                                                     <outlet property="ratingLabel" destination="hYu-zN-pjL" id="OJM-jp-JrF"/>
                                                     <outlet property="testText" destination="hYu-zN-pjL" id="J42-6m-dYR"/>
+                                                    <outlet property="voteDownButton" destination="r7P-T0-Itd" id="E8h-kj-pcW"/>
+                                                    <outlet property="voteUpButton" destination="bC9-Ki-7dZ" id="fl5-cc-KgG"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

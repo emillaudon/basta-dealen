@@ -12,6 +12,12 @@ import FirebaseStorage
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var userID: String?
+    
+    var isAnon: Bool?
+    
+    var postsVotedFor = [String]()
+    
     var db: Firestore!
 
     var listOfPosts: [Post] = []
@@ -29,6 +35,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Auth.auth().signInAnonymously() { (authResult, error) in
+          print("signed in")
+            
+            guard let user = authResult?.user else { return }
+            self.isAnon = user.isAnonymous  // true
+            self.userID = user.uid
+            
+            
+            self.getPostsVotedOn()
+            print(self.userID ?? "no user")
+        }
+        
+        
         
         assemblePostArray()
     }
@@ -130,12 +150,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func updateRatingValue(of post: Post, with newRating: Int, completion: () -> ()) {
+        postsVotedFor.append(post.postID)
         
         db = Firestore.firestore()
         
         db.collection("Posts").document(post.postID).updateData(["rating" : newRating])
         
+        saveVoteToUser(from: post)
+        
         completion()
+    }
+    
+    func saveVoteToUser(from post: Post) {
+        db = Firestore.firestore()
+        
+        if let userID = userID {
+            db.collection("users").document(userID).collection("postsVotedFor").document(post.postID).setData(["postID" : post.postID])
+        }
+    }
+    
+    func getPostsVotedOn() {
+        db = Firestore.firestore()
+        
+        if let userID = userID {
+            
+            let votedPostsRef = db.collection("users").document(userID).collection("postsVotedFor")
+            
+            votedPostsRef.getDocuments() {
+                (snapshot, error) in
+                if let error = error {
+                    print("error, could not get voted posts \(error.localizedDescription)")
+                    return
+                }
+                guard let collection = snapshot?.documents else {return}
+                
+                var downloadedPosts = [String]()
+                
+                for document in collection {
+                    let documentData = document.data() as! [String : String]
+                    
+                    guard let votedPostName = documentData["postID"] else {return}
+                    
+                    downloadedPosts.append(votedPostName)
+                    
+                    print(votedPostName)
+                }
+                self.postsVotedFor = downloadedPosts
+            }
+        }
+    }
+    
+    func checkIfPostIsVotedFor(_ post: Post, in cell: PostTableViewCell) {
+        
+        if postsVotedFor.contains(post.postID) {
+            cell.voteUpButton.isEnabled = false
+            cell.voteDownButton.isEnabled = false
+        } else {
+            cell.voteUpButton.isEnabled = true
+            cell.voteDownButton.isEnabled = true
+        }
     }
     
     func sortPostArray() {
@@ -215,6 +288,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
             let post = listOfPosts[indexPath.row]
+        
+            checkIfPostIsVotedFor(post, in: cell)
             
             cell.locationLabel.text = post.locationOfItem
             cell.postImage.image = post.image
