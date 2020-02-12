@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var postTableView: UITableView!
     
+    @IBOutlet weak var sortingButton: UIButton!
     @IBOutlet var sortingButtons: [UIButton]!
     
     override func viewDidLoad() {
@@ -37,9 +38,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             UIView.animate(withDuration: 0.1, animations: {
                 button.isHidden = !button.isHidden
                 if button.isHidden {
-                sender.backgroundColor = UIColor(red: 209/255, green: 90/255, blue: 124/255, alpha: 0)
+                    self.sortingButton.backgroundColor = UIColor(red: 209/255, green: 90/255, blue: 124/255, alpha: 0)
                 } else {
-                    sender.backgroundColor = UIColor(red: 209/255, green: 90/255, blue: 124/255, alpha: 1)
+                    self.sortingButton
+                        .backgroundColor = UIColor(red: 209/255, green: 90/255, blue: 124/255, alpha: 1)
                 }
             })
             
