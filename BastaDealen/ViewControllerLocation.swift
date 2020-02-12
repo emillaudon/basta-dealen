@@ -24,6 +24,8 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     
     var db: Firestore!
     
+    var userID: String?
+    
     var previousLocations = [Location]()
     
     var imageSelected: UIImage?
@@ -35,7 +37,19 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         locationInputFieldView.layer.cornerRadius = 10
         previousLocationsTableView.layer.cornerRadius = 10
-        getPreviousLocations()
+        
+        Auth.auth().signInAnonymously() { (authResult, error) in
+          print("signed in")
+            
+            guard let user = authResult?.user else { return }
+            self.userID = user.uid
+            
+            self.getPreviousLocations()
+            
+            print(self.userID ?? "no user")
+        }
+        
+        
         if imageSelected != nil {
             print("inte nil")
         }
@@ -60,8 +74,9 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     
     func getPreviousLocations() {
             db = Firestore.firestore()
-
-            let locationRef = db.collection("locations").document("user").collection("addedLocations")
+        
+        guard let userID = userID else {return}
+        let locationRef = db.collection("users").document(userID).collection("previousLocations")
 
             locationRef.getDocuments() {
                 (snapshot, error) in
@@ -121,8 +136,15 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     
     func uploadLocation() {
         db = Firestore.firestore()
-    db.collection("locations").document("user").collection("addedLocations").addDocument(data: ["location" : location as Any,
-                            "number" : previousLocations.count as Any])
+        
+        guard let userID = userID else {
+            return
+        }
+        
+        let locationsRef = db.collection("users").document(userID).collection("previousLocations")
+        
+        locationsRef.addDocument(data: ["location" : location as Any,
+                                        "number" : previousLocations.count as Any])
     }
     
     
