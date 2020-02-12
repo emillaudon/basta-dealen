@@ -83,8 +83,8 @@ class Post {
     }
 }
 
-struct Vote {
-    let postID: String
+class Vote {
+    var postID: String
     var isUpVote: Bool
     
     init(postID: String, isUpVote: Bool) {

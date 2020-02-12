@@ -162,6 +162,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         completion()
     }
     
+    func changeVote(of post: Post, isAnUpVote: Bool) {
+        for vote in postVotes {
+            if vote.postID == post.postID {
+                vote.isUpVote = isAnUpVote
+            }
+        }
+    }
+    
     func saveVoteToUser(on post: Post, isUpVote: Bool) {
         db = Firestore.firestore()
         
@@ -192,7 +200,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 for document in collection {
                     //let documentData = document.data() as! [String : String]
                     
-                    let vote = Vote(document: document)
+                    var vote = Vote(document: document)
                     
                     //guard let votedPostName = documentData["postID"] else {return}
                     
@@ -265,10 +273,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print(Int(indexPath.row))
             
             let currentPost: Post = listOfPosts[indexPath.row]
+            var increaseValue = 1
             
-            let newValue = currentPost.ratingOfDeal + 1
+            if cell.voteUpButton.isEnabled {
+                increaseValue = 2
+                cell.voteUpButton.isEnabled = false
+                cell.voteDownButton.isEnabled = true
+                changeVote(of: currentPost, isAnUpVote: true)
+            }
             
-            currentPost.ratingOfDeal += 1
+            let newValue = currentPost.ratingOfDeal + increaseValue
+            
+            currentPost.ratingOfDeal += increaseValue
             
             cell.ratingLabel.text = String(newValue)
             
@@ -287,10 +303,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print(Int(indexPath.row))
             
             let currentPost: Post = listOfPosts[indexPath.row]
+            var decreaseValue = 1
             
-            let newValue = currentPost.ratingOfDeal - 1
+            if !cell.voteUpButton.isEnabled {
+                decreaseValue = 2
+                cell.voteDownButton.isEnabled = false
+                cell.voteUpButton.isEnabled = true
+                changeVote(of: currentPost, isAnUpVote: false)
+            }
             
-            currentPost.ratingOfDeal -= 1
+            let newValue = currentPost.ratingOfDeal - decreaseValue
+            
+            currentPost.ratingOfDeal -= decreaseValue
             
             cell.ratingLabel.text = String(newValue)
             
