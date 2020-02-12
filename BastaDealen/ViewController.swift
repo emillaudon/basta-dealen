@@ -233,6 +233,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.voteUpButton.isEnabled = true
         cell.voteDownButton.isEnabled = true
     }
+    
+    func postIsVotedByUser(_ post: Post) -> Bool {
+        for vote in postVotes {
+            if vote.postID == post.postID {
+                return true
+            }
+        }
+        return false
+    }
         
         
         
@@ -275,7 +284,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let currentPost: Post = listOfPosts[indexPath.row]
             var increaseValue = 1
             
-            if cell.voteUpButton.isEnabled {
+            if postIsVotedByUser(currentPost) {
                 increaseValue = 2
                 cell.voteUpButton.isEnabled = false
                 cell.voteDownButton.isEnabled = true
@@ -305,7 +314,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let currentPost: Post = listOfPosts[indexPath.row]
             var decreaseValue = 1
             
-            if !cell.voteUpButton.isEnabled {
+            if postIsVotedByUser(currentPost) {
                 decreaseValue = 2
                 cell.voteDownButton.isEnabled = false
                 cell.voteUpButton.isEnabled = true
