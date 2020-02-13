@@ -52,9 +52,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     
-        assemblePostArray()
+        //assemblePostArray()
         
         setUpRefreshControl()
+        
+        refreshControl?.beginRefreshing()
+        
+        assemblePostArray()
+        
     }
     
     @IBAction func sortingButtonTapped(_ sender: UIButton) {
@@ -130,12 +135,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         post.getImage(imageDir: imageDir) {
                             self.listOfPosts.append(post)
                             self.reloadTableView()
+                            
+                            if self.refreshControl != nil {
+                                self.stopRefresh()
+                            }
                         }
                     }
                 }
-            if self.refreshControl != nil {
-                self.stopRefresh()
-            }
+            
             //}
         }
     }
@@ -206,7 +213,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 for document in collection {
                     //let documentData = document.data() as! [String : String]
                     
-                    var vote = Vote(document: document)
+                    let vote = Vote(document: document)
                     
                     //guard let votedPostName = documentData["postID"] else {return}
                     
@@ -272,6 +279,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             postTableView.backgroundView = refreshControl
         }
+        
     }
     
     @objc func testPrintIfWork() {
