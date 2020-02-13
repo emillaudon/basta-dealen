@@ -12,6 +12,7 @@ import FirebaseStorage
 import FirebaseAuth
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var refreshControl: UIRefreshControl?
     
     var userID: String?
     
@@ -50,9 +51,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print(self.userID ?? "no user")
         }
         
-        
-        
+    
         assemblePostArray()
+        
+        setUpRefreshControl()
     }
     
     @IBAction func sortingButtonTapped(_ sender: UIButton) {
@@ -97,7 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         performSegue(withIdentifier: "toUploadSegue", sender: self)
     }
     
-    func assemblePostArray() {
+    @objc func assemblePostArray() {
         db = Firestore.firestore()
         
         
@@ -109,8 +111,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(error.localizedDescription)
                 return
             }
-            postRef.addSnapshotListener() {
-                (snapshot, error) in
+//            postRef.addSnapshotListener() {
+//                (snapshot, error) in
                 guard let documents = snapshot?.documents else {return}
                 
                 //self.listOfPosts.removeAll()
@@ -131,7 +133,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                     }
                 }
+            if self.refreshControl != nil {
+                self.stopRefresh()
             }
+            //}
         }
     }
     
@@ -253,6 +258,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //            cell.voteUpButton.isEnabled = true
 //            cell.voteDownButton.isEnabled = true
 //        }
+    
+    func setUpRefreshControl() {
+        refreshControl = UIRefreshControl()
+        
+        refreshControl?.layer.zPosition = -10
+
+        refreshControl?.addTarget(self, action: #selector(testPrintIfWork), for: .valueChanged)
+        //refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+
+        if #available(iOS 10.0, *) {
+            postTableView.refreshControl = refreshControl
+        } else {
+            postTableView.backgroundView = refreshControl
+        }
+    }
+    
+    @objc func testPrintIfWork() {
+        print("works")
+        
+        assemblePostArray()
+        
+    }
+    
+    func stopRefresh(){
+        DispatchQueue.main.async {
+            self.postTableView.beginUpdates()
+            self.refreshControl?.endRefreshing()
+            self.postTableView.endUpdates()
+        }
+    }
     
     func sortPostArray() {
         switch currentSorting {
