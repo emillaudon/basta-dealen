@@ -139,9 +139,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             if self.refreshControl != nil {
                                 self.stopRefresh()
                             }
+                            
                         }
                     }
                 }
+            if self.refreshControl != nil && self.listOfPosts.count > 0 {
+                self.stopRefresh()
+            }
+                
             
             //}
         }
