@@ -10,6 +10,7 @@ import UIKit
 import Photos
 import Firebase
 import FirebaseStorage
+import FirebaseAuth
 
 class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

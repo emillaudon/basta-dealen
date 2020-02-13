@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseStorage
+import FirebaseAuth
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
