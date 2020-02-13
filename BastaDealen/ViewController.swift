@@ -356,6 +356,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let cell = sender.superview?.superview as? PostTableViewCell else {
             fatalError()
         }
+        if sender.isEnabled == false {
+            print("disabled")
+        }
         
         if let indexPath = postTableView.indexPath(for: cell) {
             print(Int(indexPath.row))
@@ -400,12 +403,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.locationLabel.text = post.locationOfItem
             cell.postImage.image = post.image
+        
+        cell.postImage.layer.cornerRadius = 7
             
             cell.ratingLabel.text = String(post.ratingOfDeal)
         
-            tableView.rowHeight = 440
+            //tableView.rowHeight = 440
         
-            tableView.contentInset.bottom = 70
+            //tableView.contentInset.bottom = 70
         
             return cell
             
