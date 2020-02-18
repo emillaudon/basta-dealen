@@ -178,6 +178,20 @@
                                                     <action selector="sortingOptionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V1d-CS-XPY"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2I-BZ-Mmx">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>
+                                                <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="IsP-Gn-dJG"/>
+                                                </constraints>
+                                                <state key="normal" title="Avstånd">
+                                                    <color key="titleColor" red="0.96470588239999999" green="0.93333333330000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="sortingButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DUw-YB-JOe"/>
+                                                    <action selector="sortingOptionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BDA-SD-lIT"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
@@ -202,6 +216,7 @@
                         <outlet property="sortingButton" destination="5MQ-tc-pKe" id="c5X-H1-PEi"/>
                         <outletCollection property="sortingButtons" destination="tzY-mw-p0W" collectionClass="NSMutableArray" id="C9t-0u-sWe"/>
                         <outletCollection property="sortingButtons" destination="oQE-wg-9nv" collectionClass="NSMutableArray" id="fcg-dg-wRK"/>
+                        <outletCollection property="sortingButtons" destination="c2I-BZ-Mmx" collectionClass="NSMutableArray" id="cL5-3y-hS3"/>
                         <segue destination="z9h-bz-Fkh" kind="presentation" identifier="toUploadSegue" modalPresentationStyle="fullScreen" id="IcE-OY-Dnf"/>
                     </connections>
                 </viewController>

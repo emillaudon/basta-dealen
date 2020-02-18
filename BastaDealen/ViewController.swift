@@ -11,8 +11,13 @@ import Firebase
 import FirebaseStorage
 import FirebaseAuth
 import MapKit
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+    let locationManager = CLLocationManager()
+    
+    var currentGPSPosition: CLLocationCoordinate2D?
+    
     var refreshControl: UIRefreshControl?
     
     var userID: String?
@@ -51,6 +56,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.getPostsVotedOn()
             print(self.userID ?? "no user")
         }
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
         
     
         //assemblePostArray()
@@ -82,6 +92,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     enum sortingOptions: String {
         case newestFirst = "Nyast Först"
         case bestDeal = "Bästa Dealen"
+        case distance = "Avstånd"
     }
     
     @IBAction func sortingOptionTapped(_ sender: UIButton) {
@@ -96,6 +107,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         case .bestDeal:
             currentSorting = .bestDeal
+            reloadTableView()
+            
+        case .distance:
+            currentSorting = .distance
             reloadTableView()
         }
     }
@@ -312,6 +327,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case .newestFirst:
             listOfPosts = listOfPosts.sorted(by: {$0.postNumber > $1.postNumber })
             
+        case .distance:
+            if let currentGPSPosition = currentGPSPosition {
+                listOfPosts = listOfPosts.sorted(by: {$0.calculateDistance(from: currentGPSPosition) < $1.calculateDistance(from: currentGPSPosition)} )
+            }
         }
         
     }
@@ -416,6 +435,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return cell
             
         }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        locationManager.stopUpdatingLocation()
+        currentGPSPosition = locValue
+    }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let destinationVC = segue.destination as! ViewControllerCamera

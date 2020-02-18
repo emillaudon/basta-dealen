@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 import FirebaseStorage
+import CoreLocation
 
 class Post {
     var image: UIImage?
@@ -89,6 +90,16 @@ class Post {
                 }
             }
         }
+    }
+    
+    func calculateDistance(from currentLocation: CLLocationCoordinate2D) -> Double {
+        let locationOfPost = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        
+        let currentLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+
+        let distance = locationOfPost.distance(from: currentLocation)
+        
+        return distance
     }
 }
 
