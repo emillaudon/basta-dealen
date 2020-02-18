@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 import FirebaseAuth
+import MapKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var refreshControl: UIRefreshControl?
@@ -27,6 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var imageSelected: UIImage?
     var location: String?
+    var GPSLocationOfNewPost: CLLocationCoordinate2D?
     var newPost: Post?
     
     var currentSorting: sortingOptions = .bestDeal
@@ -45,7 +47,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             guard let user = authResult?.user else { return }
             self.isAnon = user.isAnonymous  // true
             self.userID = user.uid
-            
             
             self.getPostsVotedOn()
             print(self.userID ?? "no user")

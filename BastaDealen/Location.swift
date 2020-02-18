@@ -8,18 +8,24 @@
 
 import Foundation
 import Firebase
+import MapKit
+import CoreLocation
 
 class Location: Comparable {
 
-    
     let locationName: String
     let locationNumber: Int
+    let latitude: Double
+    let longitude: Double
     
     init(document: QueryDocumentSnapshot) {
         let snapshotValue = document.data() as [String : Any]
         
         self.locationName = snapshotValue["location"] as! String
         self.locationNumber = snapshotValue["number"] as! Int
+        
+        self.latitude = snapshotValue["latitude"] as! Double
+        self.longitude = snapshotValue["longitude"] as! Double
         
     }
     

@@ -11,8 +11,10 @@ import Photos
 import Firebase
 import FirebaseStorage
 import FirebaseAuth
+import MapKit
+import CoreLocation
 
-class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var previousLocationsTableView: UITableView!
     
@@ -22,6 +24,8 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var progressViewBar: UIProgressView!
     
     @IBOutlet weak var uploadButton: UIButton!
+    
+    let locationManager = CLLocationManager()
     
     var db: Firestore!
     
@@ -33,6 +37,8 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     var location: String?
     
     var postRefID: String!
+    
+    var currentGPSPosition: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +55,13 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
             
             print(self.userID ?? "no user")
         }
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
         
         
         if imageSelected != nil {
@@ -122,7 +135,9 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
             "rating" : 0,
             "imageDir" : pictureRef as Any,
             "postRefID" : self.postRefID as Any,
-            "postNumber" : postCount as Any])
+            "postNumber" : postCount as Any,
+            "latitude" : self.currentGPSPosition?.latitude as Any,
+            "longitude" : self.currentGPSPosition?.longitude as Any])
         }
         
         
@@ -145,7 +160,9 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
         let locationsRef = db.collection("users").document(userID).collection("previousLocations")
         
         locationsRef.addDocument(data: ["location" : location as Any,
-                                        "number" : previousLocations.count as Any])
+                                        "number" : previousLocations.count as Any,
+                                        "latitude" : currentGPSPosition?.latitude as Any,
+                                        "longitude" : currentGPSPosition?.longitude as Any])
     }
     
     
@@ -196,23 +213,14 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
             
         }
     }
-        
-        
-//        taskReference.observe(.progress) {
-//            (snapshot) in
-//
-//            guard let pctThere = snapshot.progress?.fractionCompleted else {return}
-//            print("you are \(pctThere) complete")
-//            self.progressViewBar.isHidden = false
-//            self.progressViewBar.progress = Float(pctThere)
-            
-//            if self.progressViewBar.progress == 1 {
-//                self.uploadPost(pictureRef: uploadRefId)
-////            }
-//
-//
-//        }
-//    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        locationManager.stopUpdatingLocation()
+        currentGPSPosition = locValue
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return previousLocations.count
     }
@@ -237,6 +245,7 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
         
         destinationVC.imageSelected = imageSelected
         destinationVC.location = locationInputField.text
+        destinationVC.GPSLocationOfNewPost = currentGPSPosition
         
     }
 }
