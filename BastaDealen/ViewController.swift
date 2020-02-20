@@ -37,6 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var newPost: Post?
     
     var currentSorting: sortingOptions = .bestDeal
+    @IBOutlet weak var newPostButton: UIButton!
     
     @IBOutlet weak var postTableView: UITableView!
     
@@ -45,6 +46,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.newPostButton.setBackgroundImage(UIImage(named: "ellipse"), for: .normal)
         
         Auth.auth().signInAnonymously() { (authResult, error) in
             print("signed in")

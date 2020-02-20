@@ -118,12 +118,17 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-1t-9mN">
-                                <rect key="frame" x="307" y="731" width="75" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-1t-9mN">
+                                <rect key="frame" x="281" y="701" width="86" height="86"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="86" id="KkX-eJ-GIw"/>
+                                    <constraint firstAttribute="width" constant="86" id="fYL-xB-OF0"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <state key="normal" backgroundImage="ellipse">
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="plus" catalog="system" backgroundImage="ellipse">
                                     <color key="titleColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
                                 <connections>
                                     <action selector="toUploadButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B6h-ae-w61"/>
@@ -204,14 +209,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.53725490200000003" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CpO-1t-9mN" secondAttribute="trailing" constant="47" id="3sm-hO-Lb3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FWo-n7-Ec8" secondAttribute="bottom" constant="573" id="4Wq-9V-39k"/>
                             <constraint firstItem="FWo-n7-Ec8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="Cbo-bW-qeR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CpO-1t-9mN" secondAttribute="bottom" constant="75" id="L66-ka-fII"/>
                             <constraint firstItem="FWo-n7-Ec8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Sbn-9X-cmn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FWo-n7-Ec8" secondAttribute="trailing" constant="316" id="dnf-rN-00d"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="newPostButton" destination="CpO-1t-9mN" id="rte-JE-j05"/>
                         <outlet property="postTableView" destination="bu5-Sp-TTT" id="u2h-Sc-QBc"/>
                         <outlet property="sortingButton" destination="5MQ-tc-pKe" id="c5X-H1-PEi"/>
                         <outletCollection property="sortingButtons" destination="tzY-mw-p0W" collectionClass="NSMutableArray" id="C9t-0u-sWe"/>
@@ -308,8 +316,12 @@
                                         <rect key="frame" x="8" y="46" width="53" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Tillbaka">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="backSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="oaP-Qv-uHC"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Välj Bild" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyt-ge-SZN">
                                         <rect key="frame" x="158" y="44" width="98" height="35"/>
@@ -322,6 +334,7 @@
                                         <rect key="frame" x="366" y="46" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Nästa">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
@@ -425,6 +438,7 @@
                                         <rect key="frame" x="333" y="44" width="73" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Ladda upp">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
@@ -442,8 +456,12 @@
                                         <rect key="frame" x="8" y="44" width="53" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Tillbaka">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="z9h-bz-Fkh" kind="presentation" identifier="backSegueLocation" modalPresentationStyle="fullScreen" id="Sxp-zr-9yY"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.81960784310000001" green="0.35294117650000001" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -529,9 +547,11 @@
         <image name="arrow.down.square.fill" catalog="system" width="64" height="56"/>
         <image name="arrow.up.square.fill" catalog="system" width="64" height="56"/>
         <image name="camera.fill" catalog="system" width="64" height="48"/>
-        <image name="ellipse" width="26" height="26"/>
+        <image name="ellipse" width="39" height="39"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IcE-OY-Dnf"/>
+        <segue reference="Sxp-zr-9yY"/>
+        <segue reference="w9Y-hG-Jzo"/>
     </inferredMetricsTieBreakers>
 </document>

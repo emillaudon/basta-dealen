@@ -50,6 +50,7 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     }
     
     
+
     
     @IBAction func toLocationButton(_ sender: Any) {
         if newPostImage.image == nil {
@@ -202,13 +203,15 @@ class ViewControllerGallery: UIViewController, UICollectionViewDataSource, UICol
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
-        let destinationVC = segue.destination as! ViewControllerLocation
-        
-        if imageToSend == nil {
-            imageToSend = newPostImage.image
+        if segue.identifier != "backSegue" {
+            let destinationVC = segue.destination as! ViewControllerLocation
+            
+            if imageToSend == nil {
+                imageToSend = newPostImage.image
+            }
+            
+            destinationVC.imageSelected = imageToSend
         }
-        
-        destinationVC.imageSelected = imageToSend
     }
     
 }

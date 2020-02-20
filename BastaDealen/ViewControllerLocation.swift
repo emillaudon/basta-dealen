@@ -219,11 +219,14 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
-        let destinationVC = segue.destination as! ViewController
-        
-        destinationVC.imageSelected = imageSelected
-        destinationVC.location = locationInputField.text
-        destinationVC.GPSLocationOfNewPost = currentGPSPosition
-        
+        if segue.identifier != "backSegueLocation" {
+            
+            let destinationVC = segue.destination as! ViewController
+            
+            destinationVC.imageSelected = imageSelected
+            destinationVC.location = locationInputField.text
+            destinationVC.GPSLocationOfNewPost = currentGPSPosition
+            
+        }
     }
 }
