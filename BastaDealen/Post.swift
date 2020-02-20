@@ -20,7 +20,7 @@ class Post {
     let postNumber: Int
     let latitude: Double
     let longitude: Double
-
+    
     
     init(imageSrc: String, location: String) {
         
@@ -29,7 +29,7 @@ class Post {
         } else {
             self.image = nil
         }
-
+        
         self.locationOfItem = location
         self.ratingOfDeal = 0
         self.postID = "."
@@ -55,7 +55,7 @@ class Post {
     
     init(snapshot: QueryDocumentSnapshot) {
         let snapshotValue = snapshot.data() as [String : Any]
-
+        
         self.locationOfItem = snapshotValue["location"] as! String
         self.ratingOfDeal = snapshotValue["rating"] as! Int
         
@@ -65,16 +65,16 @@ class Post {
         
         self.latitude = snapshotValue["latitude"] as! Double
         self.longitude = snapshotValue["longitude"] as! Double
-
+        
     }
     
-//    init(snapshot: QueryDocumentSnapshot, image: UIImage, completion:@escaping () -> ()) {
-//        let snapshotValue = snapshot.data() as [String : Any]
-//        let imageDir = snapshotValue["imageDir"] as! String
-//
-//        self.locationOfItem = snapshotValue["location"] as! String
-//        self.ratingOfDeal = snapshotValue["rating"] as! Int
-//    }
+    //    init(snapshot: QueryDocumentSnapshot, image: UIImage, completion:@escaping () -> ()) {
+    //        let snapshotValue = snapshot.data() as [String : Any]
+    //        let imageDir = snapshotValue["imageDir"] as! String
+    //
+    //        self.locationOfItem = snapshotValue["location"] as! String
+    //        self.ratingOfDeal = snapshotValue["rating"] as! Int
+    //    }
     
     func getImage(imageDir: String, completion:@escaping () -> ()) {
         let storageRef = Storage.storage().reference(withPath: imageDir)
@@ -96,7 +96,7 @@ class Post {
         let locationOfPost = CLLocation(latitude: self.latitude, longitude: self.longitude)
         
         let currentLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
-
+        
         let distance = locationOfPost.distance(from: currentLocation)
         
         return distance
@@ -124,7 +124,7 @@ class Vote {
 
 class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var locationLabel: UILabel!
-
+    
     @IBOutlet weak var postImage: UIImageView!
     
     @IBOutlet weak var testText: UILabel!

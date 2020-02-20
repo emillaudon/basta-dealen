@@ -46,7 +46,7 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
         previousLocationsTableView.layer.cornerRadius = 10
         
         Auth.auth().signInAnonymously() { (authResult, error) in
-          print("signed in")
+            print("signed in")
             
             guard let user = authResult?.user else { return }
             self.userID = user.uid
@@ -55,19 +55,12 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
             
             print(self.userID ?? "no user")
         }
-
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        
-        
-        
-        if imageSelected != nil {
-            print("inte nil")
-        }
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func post(_ sender: UIButton) {
@@ -87,37 +80,34 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
     }
     
     func getPreviousLocations() {
-            db = Firestore.firestore()
+        db = Firestore.firestore()
         
         guard let userID = userID else {return}
         let locationRef = db.collection("users").document(userID).collection("previousLocations")
-
-            locationRef.getDocuments() {
-                (snapshot, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-                guard let documents = snapshot?.documents else {return}
-                    for document in documents {
-
-                        let location = Location(document: document)
-                        
-                        if !self.previousLocations.contains(location) && location.locationName != "" {
-                            self.previousLocations.append(location)
-                        }
-                        
-                        
+        
+        locationRef.getDocuments() {
+            (snapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            guard let documents = snapshot?.documents else {return}
+            for document in documents {
+                
+                let location = Location(document: document)
+                
+                if !self.previousLocations.contains(location) && location.locationName != "" {
+                    self.previousLocations.append(location)
                 }
                 
-                self.previousLocations = self.previousLocations.sorted()
-                self.previousLocationsTableView.reloadData()
- 
+                
+            }
+            
+            self.previousLocations = self.previousLocations.sorted()
+            self.previousLocationsTableView.reloadData()
+            
         }
     }
-    
-                            
-    
     
     func uploadPost(pictureRef: String) {
         
@@ -126,28 +116,19 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
         postRefID = UUID.init().uuidString
         
         uploadLocation()
-    
+        
         getPostCount() {
             (postCount) in
             
             self.db.collection("Posts").document(self.postRefID).setData([
                 "location" : self.location as Any,
-            "rating" : 0,
-            "imageDir" : pictureRef as Any,
-            "postRefID" : self.postRefID as Any,
-            "postNumber" : postCount as Any,
-            "latitude" : self.currentGPSPosition?.latitude as Any,
-            "longitude" : self.currentGPSPosition?.longitude as Any])
+                "rating" : 0,
+                "imageDir" : pictureRef as Any,
+                "postRefID" : self.postRefID as Any,
+                "postNumber" : postCount as Any,
+                "latitude" : self.currentGPSPosition?.latitude as Any,
+                "longitude" : self.currentGPSPosition?.longitude as Any])
         }
-        
-        
-        
-        
-//        let postsRef = db.collection("Posts")
-        
-//        postsRef.addDocument(data: ["location" : location as Any,
-//                                    "rating" : 0,
-//                                    "imageDir" : uploadRefId as Any])
     }
     
     func uploadLocation() {
@@ -165,9 +146,6 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
                                         "longitude" : currentGPSPosition?.longitude as Any])
     }
     
-    
-    
-    
     func uploadToDatabase() {
         let randomID = UUID.init().uuidString
         let uploadRefId = "uploads/\(randomID).jpg"
@@ -182,7 +160,7 @@ class ViewControllerLocation: UIViewController, UITableViewDelegate, UITableView
                 print("Error uploading! \(error.localizedDescription)")
                 return
             }
-                print("laddar")
+            print("laddar")
             self.uploadPost(pictureRef: uploadRefId)
         }
     }

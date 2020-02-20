@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 class Location: Comparable {
-
+    
     let locationName: String
     let locationNumber: Int
     let latitude: Double
