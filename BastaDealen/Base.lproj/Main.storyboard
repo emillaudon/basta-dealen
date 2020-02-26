@@ -178,10 +178,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-1t-9mN">
-                                <rect key="frame" x="281" y="701" width="86" height="86"/>
+                                <rect key="frame" x="281" y="746" width="86" height="86"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="86" id="WgT-Af-YBV"/>
-                                    <constraint firstAttribute="width" constant="86" id="Yoz-wt-SKv"/>
+                                    <constraint firstAttribute="height" constant="86" id="kKR-oo-gck"/>
+                                    <constraint firstAttribute="width" constant="86" id="v2A-Rz-boO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="70"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -261,11 +261,11 @@
                             <constraint firstAttribute="trailing" secondItem="z5u-u2-jrZ" secondAttribute="trailing" id="9ae-dL-y1N"/>
                             <constraint firstAttribute="bottom" secondItem="zCt-OI-n9P" secondAttribute="bottom" constant="71" id="EgR-hG-VPb"/>
                             <constraint firstItem="z5u-u2-jrZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FNC-N3-GS2"/>
-                            <constraint firstItem="CpO-1t-9mN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="261" id="JDM-N0-kHL"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="CpO-1t-9mN" secondAttribute="bottom" constant="64" id="TO4-7X-5gs"/>
                             <constraint firstItem="f3f-hA-3W5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bK7-2H-uam"/>
                             <constraint firstItem="zCt-OI-n9P" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cdi-BL-9FX"/>
                             <constraint firstItem="z5u-u2-jrZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="e0H-De-TT0"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="CpO-1t-9mN" secondAttribute="bottom" constant="109" id="gdJ-hV-a1b"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CpO-1t-9mN" secondAttribute="trailing" constant="27" id="p6q-KQ-mR0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -689,7 +689,7 @@
         <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Sxp-zr-9yY"/>
+        <segue reference="IcE-OY-Dnf"/>
         <segue reference="w9Y-hG-Jzo"/>
     </inferredMetricsTieBreakers>
 </document>
