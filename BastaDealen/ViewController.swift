@@ -395,9 +395,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.ratingLabel.text = String(post.ratingOfDeal)
         
+        if post.ratingOfDeal >= 100 {
+        
+        }
+        
         //tableView.rowHeight = 440
         
-        //tableView.contentInset.bottom = 70
+        tableView.contentInset.bottom = 70
         
         return cell
         
